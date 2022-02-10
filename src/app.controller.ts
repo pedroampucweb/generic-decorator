@@ -1,8 +1,7 @@
 import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
-import { title } from 'process';
 import { ApiPaginateResponse } from './api-paginate-response.decorator';
 import { AppService } from './app.service';
-import { FindVideoByTitleDto } from './create-video.dto';
+import { FindVideoByTitleDto } from './find-video.dto';
 import { PaginatedDto } from './paginated.dto';
 import { Video } from './video.entity';
 
