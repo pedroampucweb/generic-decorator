@@ -1,4 +1,6 @@
 import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
+import { PinoLogger } from 'nestjs-pino';
+import * as emoji from 'node-emoji';
 import { ApiPaginateResponse } from './api-paginate-response.decorator';
 import { AppService } from './app.service';
 import { FindVideoByTitleDto } from './find-video.dto';
@@ -7,10 +9,15 @@ import { Video } from './video.entity';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService,
+    private logger: PinoLogger) {}
 
-  @Get()
+  // THIS METHOD HAS THE PINO LOGGER WITH THE EMOJI
+  @Get('testEmoji')
   getHello(): string {
+    console.log(emoji.get('gear'));
+    //this.logger.logger.level = 'trace';
+    this.logger.info(emoji.get('gear') + ' test string.....');
     return this.appService.getHello();
   }
 

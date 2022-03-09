@@ -1,14 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { CorsConfig, NestConfig, SwaggerConfig } from './config/config.interface';
+import {
+  CorsConfig,
+  NestConfig,
+  SwaggerConfig,
+} from './config/config.interface';
 import { ConfigService } from '@nestjs/config';
 import { swaggerBootstrap } from './config/swagger-bootstrap/swagger-bootstrap';
 import { SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { Logger } from 'nestjs-pino';
 
 async function bootstrap() {
-  //this.dotenv.config({ path: '/custom/path/to/.env' })
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  });
+
+  // set logger
+  app.useLogger(app.get(Logger));
 
   const configService = app.get(ConfigService);
 
